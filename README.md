@@ -5,7 +5,7 @@ Reconnect to an existing tmux session on another machine. Great for using your l
 
 ### Installation
 
-```
+```bash
 git clone https://github.com/robertdfrench/remux.git
 echo "source remux/remux.sh" >> .bash_profile # Or .zprofile
 ```
