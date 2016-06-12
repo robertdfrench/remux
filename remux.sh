@@ -24,12 +24,10 @@ _remux_fail () {
 
 remux () {
   host=$1
-  _remux_eval "ping -o $host &> /dev/null"
-  pingable=$?
-  if [ $pingable -eq 0 ]
+  _remux_eval "ssh -t -o ConnectTimeout=1 $host 'tmux at -t base || tmux new -s base'"
+  successful=$?
+  if [ $successful -ne 0 ]
     then
-      _remux_eval "ssh -t $host 'tmux at -t base || tmux new -s base'"
-    else
       _remux_fail "$host is not available :-("
   fi
 }
