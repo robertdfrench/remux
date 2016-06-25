@@ -24,7 +24,12 @@ _remux_fail () {
 
 remux () {
   host=$1
-  _remux_eval "ssh -t -o ConnectTimeout=1 $host 'tmux at -t base || tmux new -s base'"
+  remote_command="tmux at -t base || tmux new -s base"
+  if [ "$2" != "" ]
+    then
+      remote_command="$2; $remote_command"
+  fi
+  _remux_eval "ssh -t -o ConnectTimeout=1 $host '$remote_command'"
   successful=$?
   if [ $successful -ne 0 ]
     then
